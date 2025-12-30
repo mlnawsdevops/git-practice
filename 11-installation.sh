@@ -20,7 +20,7 @@ then
     dnf install gittt -y
     if [ $? -ne 0 ]
     then
-        echo "Git installation is not success...check it"
+        echo "Git installation is not successful...check it"
         exit 1
     else
         echo "Git installation is successful"
