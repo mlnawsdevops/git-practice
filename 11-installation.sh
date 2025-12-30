@@ -32,7 +32,7 @@ fi
 
 dnf list installed mysql
 
-if [ $? -e 0 ]
+if [ $? -eq 0 ]
 then 
     echo " Mysql is installed..going to uninstall it"
     dnf remove mysql -y
