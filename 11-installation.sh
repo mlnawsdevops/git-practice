@@ -32,17 +32,17 @@ fi
 
 dnf list installed mysql
 
-if [ $? -ne 0 ]
+if [ $? -e 0 ]
 then 
-    echo " Mysql is not installed..going to install it"
-    dnf install mysql -y
+    echo " Mysql is installed..going to uninstall it"
+    dnf remove mysql -y
     if [ $? -ne 0 ]
     then 
-        echo "Mysql installation is not successful...check it"
+        echo "Mysql uninstallation is not successful...check it"
         exit 1
     else    
-        echo "Mysql installation is successful.."
+        echo "Mysql uninstallation is successful.."
     fi
 else
-    echo "Mysql is already installed..."
+    echo "Mysql is already uninstalled..."
 fi
