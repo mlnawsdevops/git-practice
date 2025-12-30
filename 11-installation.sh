@@ -12,8 +12,12 @@ fi
 
 dnf install git -y
 
-# ls -ltr
+dnf list installed git 
 
-# lsllkf
-
-# ls -l 
+if [ $? -ne 0 ]
+then 
+    echo "Git is not installed, going to install it..."
+    dnf install git -y
+else    
+    echo "Git is already installed, nothing to do..."
+fi
