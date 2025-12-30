@@ -29,7 +29,7 @@ then
     dnf install git -y
     VALIDATE $? "Installing Git..."
 else
-    echo "Git is already installed, nothinf to do..."
+    echo "Git is already installed, nothing to do..."
 fi
 
 dnf list installed mysql
