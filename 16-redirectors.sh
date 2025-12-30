@@ -49,16 +49,16 @@ then
 fi
 
 
-for package in $@
+for package in $@ 
 
 do
-    dnf list installed $package
+    dnf list installed $package | tee -a $LOG_FILE
     if [ $? -ne 0 ]
     then 
-        echo -e "$package is $R not installed, going to install it $N"
-        dnf install $package -y
+        echo -e "$package is $R not installed, going to install it $N" | tee -a $LOG_FILE
+        dnf install $package -y &>>LOG_FILE
         VALIDATE $? "Installing $package"
     else
-        echo -e "$package is already $Y installed, nothing to do...$N"
+        echo -e "$package is already $Y installed, nothing to do...$N" | tee -a $LOG_FILE
     fi
 done
