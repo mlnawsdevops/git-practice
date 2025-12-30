@@ -25,12 +25,12 @@ VALIDATE(){
 
 CHECK_ROOT
 
-dnf list installed git
+dnf list installed git # Just checking whether installed or not
 
 if [ $? -ne 0 ]
 then   
     echo -e "$R Git is not installed, going to install it... $N"
-    dnf install git -y
+    dnf install git -y # here installing
     VALIDATE $? "Installing Git"
 else
     echo -e "$G Git is already installed, nothing to do...$N"
