@@ -50,7 +50,7 @@ fi
 
 for package in "$@"
 do
-    dnf list installed $package &>> $LOG_FILE
+    dnf list installed $package | tee -a $LOG_FILE
     if [ $? -ne 0 ]
     then
         echo -e "$package is $R not installed, going to install it $N" | tee -a $LOG_FILE
