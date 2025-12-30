@@ -40,8 +40,7 @@ then
     then 
         echo "Mysql installation is not successful...check it"
         exit 1
-    else
-    then    
+    else    
         echo "Mysql installation is successful.."
     fi
 else
