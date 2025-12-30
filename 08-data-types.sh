@@ -1,7 +1,10 @@
 #!/bin/bash
 
 NUMBER1=$1
-NUMBER2=$2
+#NUMBER2=$2
+
+echo "Enter the NUMBER2 value:"
+read -s NUMBER2
 
 SUM=$(($NUMBER1 + $NUMBER2))
 
