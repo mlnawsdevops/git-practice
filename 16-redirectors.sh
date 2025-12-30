@@ -41,6 +41,7 @@ USAGE(){
 }
 
 echo "Script started executing at: $(date)" | tee -a $LOG_FILE
+
 CHECK_ROOT
 
 if [ $# -eq 0 ] #sudo sh 16-redirectors.sh 
@@ -49,7 +50,7 @@ then
 fi
 
 
-for package in $@ 
+for package in "$@" 
 
 do
     dnf list installed $package | tee -a $LOG_FILE
