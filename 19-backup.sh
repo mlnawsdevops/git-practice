@@ -17,9 +17,10 @@ USAGE(){
 if [ $# -lt 2 ]
 then    
     USAGE
+    exit 1
 fi
 
-if [ ! -d $SOURCE_DIR ]
+if [ ! -d "$SOURCE_DIR" ]
 then 
     echo "$SOURCE_DIR does not exist...Please check"
 fi
@@ -32,7 +33,7 @@ fi
 FILES=$(find ${SOURCE_DIR} -name "*.log" -mtime +${DAYS})
 echo "Files: $FILES"
 
-if [ -n $FILES ] #true if files are empty, ! makes it expression false
+if [ -n "$FILES" ] #true if files are empty, ! makes it expression false
 then
     echo "Files are found"
     ZIP_FILES="$DEST_DIR/app-logs-$TIMESTAMP.zip"
