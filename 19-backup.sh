@@ -40,12 +40,11 @@ then
 
     #check if zip is successfully created or not
 
-
     if [ -f $ZIP_FILES ]
     then
         echo "successfully zipped files older than $DAYS"
 
-        while ISP=read -r file
+        while ISP= read -r file
         do
             echo "deleting file: $file"
             rm -rf $file
@@ -54,7 +53,6 @@ then
     else
         echo "Zipping the files are failed"
         exit 1
-
     fi
     
 else
