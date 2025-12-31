@@ -32,7 +32,7 @@ fi
 FILES=$(find ${SOURCE_DIR} -name "*.log" -mtime +${DAYS})
 echo "Files: $FILES"
 
-if [ ! -z $FILES ] #true if files are empty, ! makes it expression false
+if [ -n $FILES ] #true if files are empty, ! makes it expression false
 then
     echo "Files are found"
     ZIP_FILES="$DEST_DIR/app-logs-$TIMESTAMP.zip"
@@ -44,7 +44,7 @@ then
     then
         echo "successfully zipped files older than $DAYS"
 
-        while ISP= read -r file
+        while IFS= read -r file
         do
             echo "deleting file: $file"
             rm -rf $file
