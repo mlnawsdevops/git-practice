@@ -49,7 +49,7 @@ then
         do
             echo "deleting file: $file"
             rm -rf $file
-        done <<< $ZIP_FILES
+        done <<< $FILES
 
     else
         echo "Zipping the files are failed"
