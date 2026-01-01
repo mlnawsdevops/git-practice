@@ -2,60 +2,57 @@
 
 SOURCE_DIR=$1
 DEST_DIR=$2
-DAYS=${3:-14} #if $3 is empty, default is 14days
-TIMESTAMP=$(date +%y-%m-%d-%H-%M-%S)
+DAYS=${3:-14}
+TIMESTAMP=$(date +"%Y-%m-%d-%H-%M-%S")
 
 R="\e[31m"
 G="\e[32m"
-N="\e[0m"
 Y="\e[33m"
+N="\e[0m"
 
-USAGE(){
-    echo -e "$R USAGE::$N sh 19-backup.sh source destination days"
+USAGE() {
+    echo -e "$R USAGE::$N backup <source_dir> <dest_dir> [days]"
 }
 
-if [ $# -lt 2 ]
-then    
+# Argument validation
+if [ $# -lt 2 ]; then
     USAGE
     exit 1
 fi
 
-if [ ! -d "$SOURCE_DIR" ]
-then 
-    echo "$SOURCE_DIR does not exist...Please check"
+# Source directory check
+if [ ! -d "$SOURCE_DIR" ]; then
+    echo -e "$R ERROR: Source directory does not exist -> $SOURCE_DIR $N"
+    exit 1
 fi
 
-if [ ! -d $DEST_DIR ]
-then
-    echo "$DEST_DIR does not exist...Please check"
+# Destination directory check (IMPORTANT FIX)
+if [ ! -d "$DEST_DIR" ]; then
+    echo -e "$Y Destination directory does not exist. Creating it... $N"
+    mkdir -p "$DEST_DIR" || exit 1
 fi
 
-FILES=$(find ${SOURCE_DIR} -name "*.log" -mtime +${DAYS})
-echo "Files: $FILES"
+# Find files once
+FILES=$(find "$SOURCE_DIR" -type f -name "*.log" -mtime +"$DAYS")
 
-if [ -n "$FILES" ] #true if files are empty, ! makes it expression false
-then
-    echo "Files are found"
-    ZIP_FILES="$DEST_DIR/app-logs-$TIMESTAMP.zip"
-    find ${SOURCE_DIR} -name "*.log" -mtime +$DAYS | zip "$ZIP_FILES" -@
+if [ -n "$FILES" ]; then
+    echo -e "$G Files found. Creating backup... $N"
 
-    #check if zip is successfully created or not
+    ZIP_FILE="$DEST_DIR/app-logs-$TIMESTAMP.zip"
 
-    if [ -f $ZIP_FILES ]
-    then
-        echo "successfully zipped files older than $DAYS"
+    echo "$FILES" | zip "$ZIP_FILE" -@
 
-        while IFS= read -r file
-        do
-            echo "deleting file: $file"
-            rm -rf $file
-        done <<< $FILES
+    if [ -f "$ZIP_FILE" ]; then
+        echo -e "$G Backup created successfully: $ZIP_FILE $N"
 
+        while IFS= read -r file; do
+            echo "Deleting file: $file"
+            rm -f "$file"
+        done <<< "$FILES"
     else
-        echo "Zipping the files are failed"
+        echo -e "$R ERROR: Zipping failed $N"
         exit 1
     fi
-    
 else
-    echo "No files older than $DAYS"
+    echo -e "$Y No log files older than $DAYS days $N"
 fi
