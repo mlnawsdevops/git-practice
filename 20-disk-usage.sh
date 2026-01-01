@@ -18,7 +18,7 @@ do
     then
         echo -e "$PARTITION is more than $DISK_THRESHOLD, Current value: $USAGE. $R Please check. $N"
     else
-        echo "$PARTITION is less than $DISK_THRESHOLD, Current value: $USAGE. $Y Nothing to do.$N"
+        echo -e "$PARTITION is less than $DISK_THRESHOLD, Current value: $USAGE. $Y Nothing to do.$N"
     fi
 
 done <<< $DISK_USAGE
