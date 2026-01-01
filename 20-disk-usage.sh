@@ -1,5 +1,10 @@
 #!/bin/bash
 
+R="\e[31m"
+G="\e[32m"
+N="\e[0m"
+Y="\e[33m"
+
 DISK_USAGE=$(df -hT | grep -i "xfs")
 DISK_THRESHOLD=5
 
@@ -11,9 +16,9 @@ do
     
     if [ $USAGE -ge $DISK_THRESHOLD ]
     then
-        echo "$PARTITION is more than $DISK_THRESHOLD, Current value: $USAGE. Please check"
+        echo -e "$PARTITION is more than $DISK_THRESHOLD, Current value: $USAGE. $R Please check. $N"
     else
-        echo "$PARTITION is less than $DISK_THRESHOLD, Current value: $USAGE. Nothing to do"
+        echo "$PARTITION is less than $DISK_THRESHOLD, Current value: $USAGE. $Y Nothing to do.$N"
     fi
 
 done <<< $DISK_USAGE
