@@ -9,7 +9,7 @@ do
 
     PARTITION=$(echo $line | grep "xfs" | awk -F " " '{print $NF}') # N means name of the disk
     
-    if[ $USAGE -ge $DISK_THRESHOLD ]
+    if [ $USAGE -ge $DISK_THRESHOLD ]
     then
         echo "$PARTITION is more than $DISK_THRESHOLD, Current value: $USAGE. Please check"
     else
